@@ -11,25 +11,48 @@
 #
 # Happy Coding!
 
-service: twitter-trending
-# app and org for use with dashboard.serverless.com
-app: twitter-trending
-org: jacksonjwatkins
-
 # You can pin your service to only deploy with a specific Serverless version
 # Check out our docs for more details
 # frameworkVersion: "=X.X.X"
 
+# app and org for use with dashboard.serverless.com
+service: twitter-trending
+app: twitter-trending
+org: jacksonjwatkins
+
+custom:
+  bucket: twitter-trending
+  env: ${file(./${self:provider.stage}.env.json)}
+
 provider:
   name: aws
+  stage: ${opt:stage, 'dev'} #opt means reference CLI option value i.e. "--stage production"
+  region: us-west-2
   runtime: nodejs12.x
   profile: twitter-trending
+  iamRoleStatements:
+    - Effect: "Allow"
+      Action:
+        - s3:PutObject
+      Resource: "arn:aws:s3:::${self:custom.bucket}/*"
+  environment:
+    BUCKET: ${self:custom.bucket}
+    TWITTER_CONSUMER_KEY: ${self:custom.env.TWITTER_CONSUMER_KEY}
+    TWITTER_CONSUMER_SECRET: ${self:custom.env.TWITTER_CONSUMER_SECRET}
+    TWITTER_ACCESS_TOKEN_KEY: ${self:custom.env.TWITTER_ACCESS_TOKEN_KEY}
+    TWILIO_ACCOUNT_SID: ${self:custom.env.TWILIO_ACCOUNT_SID}
+    TWILIO_AUTH_TOKEN: ${self:custom.env.TWILIO_AUTH_TOKEN}
 
+functions:
+  fetchTrendsAndStoreInS3:
+    handler: functions/fetchTrendsAndStoreInS3.fetchTrendsAndStoreInS3
+    events:
+      - http:
+          path: fetchTrendsAndStoreInS3
+          method: get
   # you can overwrite defaults here
   #  stage: dev
   #  region: us-east-1
-  region: us-west-1
-
 # you can add statements to the Lambda function's IAM Role here
 #  iamRoleStatements:
 #    - Effect: "Allow"
@@ -59,17 +82,10 @@ provider:
 #    - exclude-me.js
 #    - exclude-me-dir/**
 
-functions:
-  hello:
-    handler: handler.hello
-    events:
-      - http:
-          path: hello
-          method: post
-      # - cloudwatchEvent:
-      #   event:
-      #     source:
-      #       - ""
+# - cloudwatchEvent:
+#   event:
+#     source:
+#       - ""
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
 #    Check the event documentation for details

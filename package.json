@@ -1,0 +1,11 @@
+{
+  "name": "twitter-trending",
+  "description": "",
+  "version": "1.0.0",
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "aws-sdk": "^2.7.9",
+    "twitter": "^1.7.1"
+  }
+}

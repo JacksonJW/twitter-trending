@@ -2,4 +2,4 @@
 const AWS = require("AWS");
 const s3 = new AWS.s3();
 
-module.exports.processTrendsAndSend = async event => {};
+module.exports.processTrendsAndSend = async (event, context, callback) => {};
