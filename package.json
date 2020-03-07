@@ -6,7 +6,6 @@
   "license": "ISC",
   "dependencies": {
     "aws-sdk": "^2.7.9",
-    "dotenv": "^8.2.0",
     "twitter-lite": "^0.9.4"
   }
 }

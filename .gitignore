@@ -6,6 +6,5 @@ jspm_packages
 .serverless
 
 #environment variables
-.env
 dev.env.json
 production.env.json

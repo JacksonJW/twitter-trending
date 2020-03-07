@@ -1,4 +1,3 @@
-require("dotenv").config({ path: __dirname + "/../.env" });
 const Twitter = require("twitter-lite");
 
 let twitterClient = new Twitter({

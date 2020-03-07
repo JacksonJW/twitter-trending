@@ -13,23 +13,25 @@ module.exports.fetchTrendsAndStoreInS3 = async (event, context, callback) => {
       //   "typeof JSON.stringify(json): " + typeof JSON.stringify(json)
       // );
       // console.log("json[0]: " + json[0]);
-      console.log("json[0].trends: " + json[0].trends);
+      console.log("\njson[0].trends: " + json[0].trends + "\n");
+      console.log("typeof json[0].trends: " + typeof json[0].trends + "\n");
       // console.log("Object.keys(json[0]): " + Object.keys(json[0]));
       // console.log("json[0].status: " + json[0].status);
       console.log(
-        "JSON.stringify(json[0].trends): " + JSON.stringify(json[0].trends)
+        "JSON.stringify(json[0].trends): " +
+          JSON.stringify(json[0].trends + "\n")
       );
       // console.log("typeof json[0]: " + typeof json[0]);
       // console.log("json[0][0]: " + json[0][0]);
       // console.log("typeof json.status: " + typeof json.status);
       // console.log("typeof json: " + typeof json);
-      console.log("Object.keys(json): " + Object.keys(json));
+      console.log("Object.keys(json): " + Object.keys(json) + "\n");
       // console.log("json: " + json);
       // console.log("json.status: " + json.status);
       // console.log(
       //   "Object.keys(json[0].trends): " + Object.keys(json[0].trends)
       // );
-      console.log("json._headers.status[0]", json._headers.status[0]);
+      console.log("json._headers.status[0]: " + json._headers.status[0] + "\n");
 
       status = json._headers.status[0];
 
@@ -41,7 +43,6 @@ module.exports.fetchTrendsAndStoreInS3 = async (event, context, callback) => {
           })
         });
       }
-      console.log("test");
       // Grab the list of trends object from the json
       const { trends } = json[0];
       console.log(`trends api response: ${trends}`);
@@ -49,6 +50,7 @@ module.exports.fetchTrendsAndStoreInS3 = async (event, context, callback) => {
         statusCode: json._headers.status[0],
         body: JSON.stringify(trends[0])
       });
+      console.log("test");
 
       // Set up s3
       // s3.putObject({
