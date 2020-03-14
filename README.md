@@ -12,4 +12,16 @@ Install serverless globally:
 
 https://serverless.com/framework/docs/providers/aws/guide/serverless.yml/
 
+## common serverless dev commands
+
+To test locally
+
+`sls invoke local -f fetchTrendsAndStoreInS3`
+
+To deploy and invoke remotely
+
+`sls deploy`
+
+`sls invoke -f fetchTrendsAndStoreInS3`
+
 ## Work in Progress as of January 2020
