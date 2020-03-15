@@ -33,4 +33,10 @@ functions:
       - http:
           path: fetchTrendsAndStoreInS3
           method: get
-      - schedule: cron(0 */1 * * ? *)
+      - schedule: cron(0 */1 * * ? *) # every hour
+  clearS3Bucket:
+    handler: functions/clearS3Bucket.clearS3Bucket
+    events:
+      - http:
+          path: clearS3Bucket
+          method: get

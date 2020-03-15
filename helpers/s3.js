@@ -14,6 +14,8 @@ const storeInS3 = obj => {
     .promise();
 };
 
+// const removeS3Files = () => {};
+
 module.exports = {
   storeInS3
 };
