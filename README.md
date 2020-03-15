@@ -8,10 +8,6 @@ Install serverless globally:
 
 `sudo npm install -g serverless`
 
-## serverless.yml reference
-
-https://serverless.com/framework/docs/providers/aws/guide/serverless.yml/
-
 ## common serverless dev commands
 
 To test locally
@@ -23,5 +19,9 @@ To deploy and invoke remotely
 `sls deploy`
 
 `sls invoke -f fetchTrendsAndStoreInS3`
+
+## serverless.yml reference
+
+https://serverless.com/framework/docs/providers/aws/guide/serverless.yml/
 
 ## Work in Progress as of January 2020
