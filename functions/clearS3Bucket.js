@@ -8,5 +8,6 @@ module.exports.clearS3Bucket = (event, context, callback) => {
   return s3
     .listObjects(params)
     .promise()
-    .then(response => callback(null, response));
+    .then(response => callback(null, response))
+    .catch(error => callback(error, null));
 };
