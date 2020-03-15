@@ -10,7 +10,7 @@ Install serverless globally:
 
 ## common serverless dev commands
 
-To test locally
+To test functions locally
 
 `sls invoke local -f fetchTrendsAndStoreInS3`
 

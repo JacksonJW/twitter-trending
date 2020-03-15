@@ -11,7 +11,7 @@ let twitterClient = new Twitter({
 const woeId = "2352824";
 const params = { id: woeId };
 
-const getTrends = () =>
+const fetchTrends = () =>
   new Promise((resolve, reject) => {
     twitterClient
       .get("trends/place", params)
@@ -20,5 +20,5 @@ const getTrends = () =>
   });
 
 module.exports = {
-  getTrends
+  fetchTrends
 };

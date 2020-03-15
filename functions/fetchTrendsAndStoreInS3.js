@@ -1,13 +1,14 @@
 // TODO: implement fetchTrendsAndStoreInS3 function
 const AWS = require("aws-sdk"); // eslint-disable-line import/no-extraneous-dependencies
 const s3 = new AWS.S3();
-const { getTrends } = require("../helpers/twitter");
+const { fetchTrends } = require("../helpers/twitter");
+// TODO: const { storeInS3 } = require();
 
 module.exports.fetchTrendsAndStoreInS3 = (event, context, callback) => {
   const dateTime = new Date().toISOString();
   filename = `twitter-trends${dateTime}.json`;
 
-  getTrends() // eslint-disable-next-line consistent-return
+  fetchTrends() // eslint-disable-next-line consistent-return
     .then(response => {
       status = response._headers.status[0];
       if (status !== "200 OK") {
