@@ -40,3 +40,4 @@ functions:
       - http:
           path: clearS3Bucket
           method: get
+      - schedule: cron(0 1 * * ? *)
