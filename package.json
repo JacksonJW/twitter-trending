@@ -5,7 +5,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "aws-sdk": "^2.7.9",
+    "aws-sdk": "^2.643.0",
     "twitter-lite": "^0.9.4"
   }
 }
