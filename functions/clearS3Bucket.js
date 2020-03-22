@@ -5,7 +5,6 @@ const s3 = new AWS.S3();
 const listParams = { Bucket: process.env.BUCKET };
 
 module.exports.clearS3Bucket = (event, context, callback) => {
-  // TODO: clear all listed files
   s3.listObjects(listParams)
     .promise()
     .then(response => {
