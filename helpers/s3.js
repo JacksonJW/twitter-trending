@@ -14,8 +14,23 @@ const storeInS3 = obj => {
     .promise();
 };
 
+const listS3Files = () => {
+  const params = { Bucket: process.env.BUCKET };
+  return s3.listObjects(params).promise();
+}
+
+const removeS3Files = (keysToDelete) => {
+  const params = {
+    Bucket: process.env.BUCKET,
+    Delete: { Objects: keysToDelete }
+  };
+  return s3.deleteObjects(params).promise();
+};
+
 // const removeS3Files = () => {};
 
 module.exports = {
-  storeInS3
+  storeInS3,
+  listS3Files,
+  removeS3Files
 };

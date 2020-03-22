@@ -1,12 +1,11 @@
 // TODO: implement clearS3Bucket.js function
-const AWS = require("aws-sdk");
-const s3 = new AWS.S3();
-
-const listParams = { Bucket: process.env.BUCKET };
+// const AWS = require("aws-sdk");
+// const s3 = new AWS.S3();
+const { removeS3Files } = require("../helpers/s3");
+const { listS3Files } = require("../helpers/s3");
 
 module.exports.clearS3Bucket = (event, context, callback) => {
-  s3.listObjects(listParams)
-    .promise()
+  listS3Files()
     .then(response => {
       const objects = response.Contents;
       const keyArray = objects.map(o => {
@@ -22,15 +21,10 @@ module.exports.clearS3Bucket = (event, context, callback) => {
           })
         });
       }
-      return keyArray
+      return keyArray;
     })
     .then(keyArray => {
-      s3deleteParams = {
-        Bucket: process.env.BUCKET,
-        Delete: { Objects: keyArray }
-      };
-      s3.deleteObjects(s3deleteParams)
-        .promise()
+      removeS3Files(keyArray)
         .then(response => callback(null, response))
         .catch(error => callback(error, null));
     })
