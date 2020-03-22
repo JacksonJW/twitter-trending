@@ -1,10 +1,9 @@
 const AWS = require("aws-sdk");
 const s3 = new AWS.S3();
 
-const dateTime = new Date().toISOString();
-const filename = `twitter-trends${dateTime}.json`;
-
 const storeInS3 = obj => {
+  const dateTime = new Date().toISOString();
+  const filename = `twitter-trends${dateTime}.json`;
   return s3
     .putObject({
       Bucket: process.env.BUCKET,
@@ -26,8 +25,6 @@ const removeS3Files = (keysToDelete) => {
   };
   return s3.deleteObjects(params).promise();
 };
-
-// const removeS3Files = () => {};
 
 module.exports = {
   storeInS3,
