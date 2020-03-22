@@ -13,6 +13,7 @@ module.exports.fetchTrendsAndStoreInS3 = (event, context, callback) => {
           })
         });
       }
+      return response;
     })
 
     .then(json => {
