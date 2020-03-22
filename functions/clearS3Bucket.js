@@ -1,6 +1,3 @@
-// TODO: implement clearS3Bucket.js function
-// const AWS = require("aws-sdk");
-// const s3 = new AWS.S3();
 const { removeS3Files } = require("../helpers/s3");
 const { listS3Files } = require("../helpers/s3");
 

@@ -15,7 +15,10 @@ provider:
   iamRoleStatements:
     - Effect: "Allow"
       Action:
-        - s3:PutObject
+        - "s3:PutObject"
+        - "s3:PutObjectAcl"
+        - "s3:DeleteObjects"
+        - "s3:ListObjects"
       Resource: "arn:aws:s3:::${self:custom.bucket}/*"
   environment:
     BUCKET: ${self:custom.bucket}
@@ -40,4 +43,4 @@ functions:
       - http:
           path: clearS3Bucket
           method: get
-      - schedule: cron(0 1 * * ? *)
+      - schedule: cron(0 1 * * ? *) # at 1am every day
