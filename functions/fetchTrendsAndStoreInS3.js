@@ -1,4 +1,4 @@
-const { fetchTrends } = require("../helpers/twitter");
+let { fetchTrends } = require("../helpers/twitter");
 const { storeInS3 } = require("../helpers/s3");
 
 module.exports.fetchTrendsAndStoreInS3 = (event, context, callback) => {

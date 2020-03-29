@@ -1,4 +1,4 @@
-const AWS = require("aws-sdk");
+let AWS = require("aws-sdk");
 const s3 = new AWS.S3();
 
 const storeInS3 = obj => {
