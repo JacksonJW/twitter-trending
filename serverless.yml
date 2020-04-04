@@ -22,7 +22,6 @@ provider:
         - "s3:DeleteObject"
         - "s3:ListBucket"
         - "s3:ListAllMyBuckets"
-        - "s3:DeleteBucket"
       Resource: "arn:aws:s3:::${self:custom.bucket}*"
   environment:
     BUCKET: ${self:custom.bucket}
