@@ -46,4 +46,4 @@ functions:
       - http:
           path: clearS3Bucket
           method: get
-      - schedule: cron(0 1 * * ? *) # at 1am every day
+      - schedule: cron(0 13 * * ? *) # at 1am every day 0 1 * * *
