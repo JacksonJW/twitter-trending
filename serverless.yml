@@ -31,6 +31,7 @@ provider:
     TWITTER_ACCESS_TOKEN_SECRET: ${self:custom.env.TWITTER_ACCESS_TOKEN_SECRET}
     TWILIO_ACCOUNT_SID: ${self:custom.env.TWILIO_ACCOUNT_SID}
     TWILIO_AUTH_TOKEN: ${self:custom.env.TWILIO_AUTH_TOKEN}
+    SENDGRID_API_KEY: ${self:custom.env.SENDGRID_API_KEY}
 
 functions:
   fetchTrendsAndStoreInS3:
@@ -47,3 +48,9 @@ functions:
           path: clearS3Bucket
           method: get
       - schedule: cron(0 13 * * ? *) # at 1am every day 0 1 * * *
+  processTrendsAndSend:
+    handler: functions/processTrendsAndSend.processTrendsAndSend
+    events:
+      - http:
+          path: processTrendsAndSend
+          method: get

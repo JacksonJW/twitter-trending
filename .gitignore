@@ -5,6 +5,9 @@ jspm_packages
 # Serverless directories
 .serverless
 
-#environment variables
+#app environment variables
 dev.env.json
 production.env.json
+
+#sendgrid environment variables
+ 

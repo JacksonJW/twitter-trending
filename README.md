@@ -1,6 +1,6 @@
 # twitter-trending
 
-A Serverless app utilizing s3 and SendGrid used to send me the top twitter trends for the day.
+A Serverless app utilizing s3 and SendGrid to send me the top twitter trends for the day.
 
 ## Local Setup
 

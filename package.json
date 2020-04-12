@@ -5,6 +5,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@sendgrid/mail": "^7.0.0",
     "aws-sdk": "^2.651.0",
     "twitter-lite": "^0.9.4"
   }
