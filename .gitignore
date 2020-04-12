@@ -8,6 +8,3 @@ jspm_packages
 #app environment variables
 dev.env.json
 production.env.json
-
-#sendgrid environment variables
- 
