@@ -1,8 +1,8 @@
-const AWS = require('aws-sdk');
+const AWS = require("aws-sdk");
 
 const s3 = new AWS.S3();
 
-const storeInS3 = (objectToStore, dateTime = '') => {
+const storeInS3 = (objectToStore, dateTime = "") => {
   const filename = `twitter-trends${dateTime}.json`;
   return s3
     .putObject({

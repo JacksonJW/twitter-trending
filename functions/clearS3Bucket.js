@@ -1,11 +1,11 @@
-const { removeS3Files } = require('../helpers/s3');
-const { listS3Files } = require('../helpers/s3');
+const { removeS3Files } = require("../helpers/s3");
+const { listS3Files } = require("../helpers/s3");
 
 module.exports.clearS3Bucket = (event, context, callback) => {
   listS3Files()
     .then((response) => {
-      const objects = response.Contents;
-      const keyArray = objects.map(o => {
+      const s3Objects = response.Contents;
+      const keyArray = s3Objects.map((o) => {
         return { Key: o.Key };
       });
       return keyArray;
@@ -14,7 +14,7 @@ module.exports.clearS3Bucket = (event, context, callback) => {
       if (!keyArray.length) {
         callback(null, {
           body: JSON.stringify({
-            error: 'Bucket is empty!',
+            error: "Bucket is empty!",
           }),
         });
       }
