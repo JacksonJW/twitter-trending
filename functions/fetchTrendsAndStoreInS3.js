@@ -1,6 +1,5 @@
 const { fetchTrends } = require("../helpers/twitter");
 const { storeInS3 } = require("../helpers/s3");
-// const moment = require('moment')
 
 module.exports.fetchTrendsAndStoreInS3 = (event, context, callback) => {
   fetchTrends() // eslint-disable-next-line consistent-return
@@ -21,8 +20,7 @@ module.exports.fetchTrendsAndStoreInS3 = (event, context, callback) => {
     })
 
     .then((json) => {
-      const dateTime = new Date().toLocaleString();
-      storeInS3(json, dateTime)
+      storeInS3(json)
         .then((response) => callback(null, response))
         .catch((error) => callback(error, null));
     })

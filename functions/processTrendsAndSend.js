@@ -3,7 +3,7 @@ const sgMail = require("@sendgrid/mail");
 const moment = require("moment");
 
 module.exports.processTrendsAndSend = (event, context, callback) => {
-  const formattedDate = moment().format("dddd MMMM Do, YYYY");
+  const formattedDate = moment().format("dddd MMMM Do, YYYY"); // ex. Saturday April 25th, 2020
 
   sgMail.setApiKey(process.env.SENDGRID_API_KEY);
   const msg = {
