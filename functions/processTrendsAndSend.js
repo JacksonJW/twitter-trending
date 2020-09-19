@@ -30,13 +30,15 @@ module.exports.processTrendsAndSend = (event, context, callback) => {
       }
       return keyArray;
     })
+    .then((keyArray) => {
+      const firstItemKey = keyArray[0].Key;
+      console.log(firstItemKey);
 
-    // .then((keyArray) => {
-    //   const firstItem = keyArray[0];
-    //   getS3Object(firstItem).then((response) => {
-    //     console.log(response);
-    //   });
-    // })
+      getS3Object(firstItemKey).then((response) => {
+        console.log(JSON.parse(response.Body.toString()));
+      });
+      return keyArray;
+    })
     .catch((error) => callback(error, null));
 
   // Send email
