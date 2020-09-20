@@ -34,6 +34,8 @@ module.exports.processTrendsAndSend = (event, context, callback) => {
       const firstItemKey = keyArray[0].Key;
       console.log(firstItemKey);
 
+      // TODO: use async here or something else to loop through the objects
+
       getS3Object(firstItemKey).then((response) => {
         console.log(JSON.parse(response.Body.toString()));
       });
