@@ -17,7 +17,7 @@ module.exports.processTrendsAndSend = (event, context, callback) => {
       const keyArray = s3Objects.map((o) => {
         return { Key: o.Key };
       });
-      console.log(keyArray);
+      console.log("keyArray: ", keyArray);
       return keyArray;
     })
     .then((keyArray) => {
@@ -32,12 +32,18 @@ module.exports.processTrendsAndSend = (event, context, callback) => {
     })
     .then((keyArray) => {
       const firstItemKey = keyArray[0].Key;
-      console.log(firstItemKey);
+      console.log("firstItemKey: ", firstItemKey);
 
       // TODO: use async here or something else to loop through the objects
 
       getS3Object(firstItemKey).then((response) => {
-        console.log(JSON.parse(response.Body.toString()));
+
+        const [{ trends }] = JSON.parse(response.Body.toString());
+        console.log("trends:", trends);
+
+        // trends.forEach(() => {
+        //   trendsCounter[]
+        // });
       });
       return keyArray;
     })
