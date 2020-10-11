@@ -36,7 +36,10 @@ module.exports.processTrendsAndSend = (event, context, callback) => {
 
       // TODO: use async here or something else to loop through the objects
 
-      getS3Object(firstItemKey).then((response) => {
+      // const trends = await getS3Object(firstItemKey).then((response) =>
+      //   JSON.parse(response.Body.toString()));
+
+      const trendsCounter2 = getS3Object(firstItemKey).then((response) => {
         const [{ trends }] = JSON.parse(response.Body.toString());
 
         console.log("trends:", trends);
@@ -51,9 +54,13 @@ module.exports.processTrendsAndSend = (event, context, callback) => {
           console.log("trendsCounterInLoop: ", trendsCounter);
         });
 
-        // TODO: Figure out a way to get trendsCounter outside the context of this promise
+        // TODO: Figure out a way to get trendsCounter outside the context of this promise above
 
-        return trendsCounter;
+        console.log("trendsCounterRightOutsideLoop: ", trendsCounter);
+
+        console.log("trendsCounter2: ", trendsCounter2);
+
+        return trendsCounter2;
       });
 
       console.log("trendsCounter.toString(): ", trendsCounter.toString());
