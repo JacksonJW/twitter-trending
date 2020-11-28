@@ -9,28 +9,25 @@ module.exports.processTrendsAndSend = (event, context, callback) => {
 
   listS3Files()
     .then((response) => {
-      // response.Content.forEach((trend) => {
-      //   trendsCounter[trend]
-      // });
       const s3Objects = response.Contents;
-      const keyArray = s3Objects.map((o) => {
+      const s3KeyArray = s3Objects.map((o) => {
         return { Key: o.Key };
       });
-      console.log("keyArray: ", keyArray);
-      return keyArray;
+      console.log("s3KeyArray: ", s3KeyArray);
+      return s3KeyArray;
     })
-    .then((keyArray) => {
-      if (!keyArray.length) {
+    .then((s3KeyArray) => {
+      if (!s3KeyArray.length) {
         callback(null, {
           body: JSON.stringify({
             error: "Bucket is empty!",
           }),
         });
       }
-      return keyArray;
+      return s3KeyArray;
     })
-    .then((keyArray) => {
-      const firstItemKey = keyArray[0].Key;
+    .then((s3KeyArray) => {
+      const firstItemKey = s3KeyArray[0].Key;
       const trendsCounter = {};
       console.log("firstItemKey: ", firstItemKey);
 
@@ -39,31 +36,44 @@ module.exports.processTrendsAndSend = (event, context, callback) => {
       // const trends = await getS3Object(firstItemKey).then((response) =>
       //   JSON.parse(response.Body.toString()));
 
-      const trendsCounter2 = getS3Object(firstItemKey).then((response) => {
-        const [{ trends }] = JSON.parse(response.Body.toString());
+      // run this below in the context of a loop:
+      const countTrendsByKey = (key) =>
+        getS3Object(key).then((response) => {
+          const [{ trends }] = JSON.parse(response.Body.toString());
 
-        console.log("trends:", trends);
-        console.log("1st trend: ", trends[0]);
+          console.log("trends:", trends);
+          console.log("1st trend: ", trends[0]);
 
-        trends.forEach((trend) => {
-          if (trendsCounter[trend.name]) {
-            trendsCounter[trend.name] += 1;
-          } else {
-            trendsCounter[trend.name] = 1;
-          }
-          console.log("trendsCounterInLoop: ", trendsCounter);
+          trends.forEach((trend) => {
+            if (trendsCounter[trend.name]) {
+              trendsCounter[trend.name] += 1;
+            } else {
+              trendsCounter[trend.name] = 1;
+            }
+            console.log("trendsCounterInLoop: ", trendsCounter);
+          });
+
+          // TODO: Figure out a way to get trendsCounter outside the context of this promise above
+
+          console.log("trendsCounterRightOutsideLoop: ", trendsCounter);
+
+          // console.log("trendsCounter2: ", trendsCounter2);
+
+          return trendsCounter;
+          // callback(trendsCounter);
         });
 
-        // TODO: Figure out a way to get trendsCounter outside the context of this promise above
+      for 
 
-        console.log("trendsCounterRightOutsideLoop: ", trendsCounter);
-
-        console.log("trendsCounter2: ", trendsCounter2);
-
-        return trendsCounter2;
-      });
-
-      console.log("trendsCounter.toString(): ", trendsCounter.toString());
+      console.log(
+        "trendsCounter right outside the context of the loop: ",
+        trendsCounter
+      );
+        console.log("trendsCounter.toString(): ", trendsCounter.toString());
+        console.log(
+          "Object.getOwnPropertyNames(trendsCounter): ",
+          Object.getOwnPropertyNames(trendsCounter)
+        );
       console.log("trendsCounterFirst: ", trendsCounter);
 
       return trendsCounter;
