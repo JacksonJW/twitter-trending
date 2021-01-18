@@ -27,17 +27,17 @@ module.exports.processTrendsAndSend = (event, context, callback) => {
       return s3KeyArray;
     })
     .then((s3KeyArray) => {
+      // Loop through s3 json files and count the occurrences of the trends
       const firstItemKey = s3KeyArray[0].Key;
-      const trendsCounter = {};
       console.log("firstItemKey: ", firstItemKey);
-
       // TODO: use async here or something else to loop through the objects
 
       // const trends = await getS3Object(firstItemKey).then((response) =>
       //   JSON.parse(response.Body.toString()));
 
       // run this below in the context of a loop:
-      const countTrendsByKey = (key) =>
+      const countTrendsByS3Key = (key) => {
+        const trendsCounter = {};
         getS3Object(key).then((response) => {
           const [{ trends }] = JSON.parse(response.Body.toString());
 
@@ -62,23 +62,24 @@ module.exports.processTrendsAndSend = (event, context, callback) => {
           return trendsCounter;
           // callback(trendsCounter);
         });
+      };
 
-      for 
-
+      const trendsCounter = countTrendsByS3Key(firstItemKey);
       console.log(
-        "trendsCounter right outside the context of the loop: ",
+        "trendsCounter after calling countTrendsByS3Key: ",
         trendsCounter
       );
-        console.log("trendsCounter.toString(): ", trendsCounter.toString());
-        console.log(
-          "Object.getOwnPropertyNames(trendsCounter): ",
-          Object.getOwnPropertyNames(trendsCounter)
-        );
+      console.log("trendsCounter.toString(): ", trendsCounter.toString());
+      console.log(
+        "Object.getOwnPropertyNames(trendsCounter): ",
+        Object.getOwnPropertyNames(trendsCounter)
+      );
       console.log("trendsCounterFirst: ", trendsCounter);
 
       return trendsCounter;
     })
     .then((trendsCounter) => {
+      // Send the results
       console.log("trendsCounterSecond: ", trendsCounter);
 
       console.log("Object.keys(trendsCounter): ", Object.keys(trendsCounter));
