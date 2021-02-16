@@ -30,24 +30,9 @@ module.exports.processTrendsAndSend = (event, context, callback) => {
       // Loop through s3 json files and count the occurrences of the trends
       const firstS3Key = s3KeyArray[0].Key;
       console.log("firstItemKey: ", firstS3Key);
-      const o = getS3Object(firstS3Key).on();
-      console.log("getS3Object(firstS3Key): ", o);
-      // const trends = await getS3Object(firstItemKey).then((response) =>
-      //   JSON.parse(response.Body.toString()));
-      // combinedTrendsCounter = {};
 
-      // Fill out loop
-      // s3KeyArray.forEach((key) => {
-      //   combinedTrendsCounterPromise = Object.assign(buildTrendsCounterObject(key, combinedTrendsCounter).then((response) => { });
-      // });
-
-      // const combinedObject = Object.assign(objectToMergeTo, source1, source2)
-
-      // run this function below in the context of a loop:
       const buildTrendsCounterObject = (s3Key, previousTrendsCounterObject) => {
         const trendsCounter = previousTrendsCounterObject;
-        // TODO: return the value generated from this getS3Object promise
-        // below within the buildTrendsCounterObject() function context
 
         return getS3Object(s3Key).then((response) => {
           const [{ trends }] = JSON.parse(response.Body.toString());
@@ -63,22 +48,42 @@ module.exports.processTrendsAndSend = (event, context, callback) => {
             }
           });
 
+          console.log(
+            "final trendsCounter object after calling function: ",
+            trendsCounter
+          );
+
           return trendsCounter;
         });
       };
 
-      // Call buildTrendsCounterObject
+      let combinedTrendsPromise = Promise.resolve().then(() => {
+        return {};
+      });
+
+      // Fill out loop
+      s3KeyArray.forEach((key) => {
+        combinedTrendsPromise = combinedTrendsPromise.then(
+          (trendsCounterObject) =>
+            buildTrendsCounterObject(key, trendsCounterObject)
+        );
+      });
+
+      console.log(combinedTrendsPromise, "combinedTrendsPromise: ");
+      // code to combine a js object:
+      // const combinedObject = Object.assign(objectToMergeTo, source1, source2)
+
       const trendsCounter1 = buildTrendsCounterObject(firstS3Key);
-      console.log(
-        "trendsCounter after calling buildTrendsCounterObject: ",
-        trendsCounter1
-      );
-      console.log("typeof trendsCounter: ", typeof trendsCounter1);
-      console.log(
-        "Object.getOwnPropertyNames(trendsCounter): ",
-        Object.getOwnPropertyNames(trendsCounter1)
-      );
-      console.log("trendsCounterFirst: ", trendsCounter1);
+      // console.log(
+      //   "trendsCounter after calling buildTrendsCounterObject: ",
+      //   trendsCounter1
+      // );
+      // console.log("typeof trendsCounter: ", typeof trendsCounter1);
+      // console.log(
+      //   "Object.getOwnPropertyNames(trendsCounter): ",
+      //   Object.getOwnPropertyNames(trendsCounter1)
+      // );
+      // console.log("trendsCounterFirst: ", trendsCounter1);
 
       return trendsCounter1;
     })
