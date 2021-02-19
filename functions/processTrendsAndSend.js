@@ -10,39 +10,33 @@ module.exports.processTrendsAndSend = (event, context, callback) => {
   listS3Files()
     .then((response) => {
       const s3Objects = response.Contents;
-      const s3KeyArray = s3Objects.map((o) => {
+      const s3KeyObjectArray = s3Objects.map((o) => {
         return { Key: o.Key };
       });
-      console.log("s3KeyArray: ", s3KeyArray);
-      return s3KeyArray;
+      console.log("s3KeyObjectArray: ", s3KeyObjectArray);
+      return s3KeyObjectArray;
     })
-    .then((s3KeyArray) => {
-      if (!s3KeyArray.length) {
+    .then((s3KeyObjectArray) => {
+      if (!s3KeyObjectArray.length) {
         callback(null, {
           body: JSON.stringify({
             error: "Bucket is empty!",
           }),
         });
       }
-      return s3KeyArray;
+      return s3KeyObjectArray;
     })
     .then((s3KeyObjectArray) => {
-      // Loop through s3 json files and count the occurrences of the trends
       const s3KeyArray = s3KeyObjectArray.map((o) => {
         return o.Key;
       });
 
-      const firstS3Key = s3KeyArray[0];
-      console.log("firstItemKey: ", firstS3Key);
-
+      // Loop through s3 json files and count the occurrences of the trends
       const buildTrendsCounterObject = (s3Key, previousTrendsCounterObject) => {
         const trendsCounter = previousTrendsCounterObject;
 
         return getS3Object(s3Key).then((response) => {
           const [{ trends }] = JSON.parse(response.Body.toString());
-
-          console.log("trends:", trends);
-          console.log("1st trend: ", trends[0]);
 
           trends.forEach((trend) => {
             if (trendsCounter[trend.name]) {
@@ -65,7 +59,6 @@ module.exports.processTrendsAndSend = (event, context, callback) => {
         return {};
       });
 
-      // Fill out loop
       s3KeyArray.forEach((key) => {
         combinedTrendsPromise = combinedTrendsPromise.then(
           (trendsCounterObject) =>
