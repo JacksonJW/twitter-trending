@@ -26,9 +26,13 @@ module.exports.processTrendsAndSend = (event, context, callback) => {
       }
       return s3KeyArray;
     })
-    .then((s3KeyArray) => {
+    .then((s3KeyObjectArray) => {
       // Loop through s3 json files and count the occurrences of the trends
-      const firstS3Key = s3KeyArray[0].Key;
+      const s3KeyArray = s3KeyObjectArray.map((o) => {
+        return o.Key;
+      });
+
+      const firstS3Key = s3KeyArray[0];
       console.log("firstItemKey: ", firstS3Key);
 
       const buildTrendsCounterObject = (s3Key, previousTrendsCounterObject) => {
@@ -69,38 +73,15 @@ module.exports.processTrendsAndSend = (event, context, callback) => {
         );
       });
 
-      console.log(combinedTrendsPromise, "combinedTrendsPromise: ");
-      // code to combine a js object:
-      // const combinedObject = Object.assign(objectToMergeTo, source1, source2)
+      console.log("combinedTrendsPromise: ", combinedTrendsPromise);
 
-      const trendsCounter1 = buildTrendsCounterObject(firstS3Key);
-      // console.log(
-      //   "trendsCounter after calling buildTrendsCounterObject: ",
-      //   trendsCounter1
-      // );
-      // console.log("typeof trendsCounter: ", typeof trendsCounter1);
-      // console.log(
-      //   "Object.getOwnPropertyNames(trendsCounter): ",
-      //   Object.getOwnPropertyNames(trendsCounter1)
-      // );
-      // console.log("trendsCounterFirst: ", trendsCounter1);
-
-      return trendsCounter1;
+      return combinedTrendsPromise;
     })
     .then((trendsCounter) => {
       // Send the results
       console.log("trendsCounterSecond: ", trendsCounter);
+      console.log("max: ", Math.max(...Object.values(trendsCounter)));
 
-      console.log("Object.keys(trendsCounter): ", Object.keys(trendsCounter));
-
-      console.log("Object.keys(trendsCounter)[0]: ",
-        Object.keys(trendsCounter)[0]
-      );
-
-      console.log(
-        "typeof trendsCounter.keys()[0]: ",
-        typeof Object.keys(trendsCounter)[0]
-      );
       // Send email
       const msg = {
         to: "jacksonjwatkins@gmail.com",
