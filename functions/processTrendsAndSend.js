@@ -72,8 +72,11 @@ module.exports.processTrendsAndSend = (event, context, callback) => {
     })
     .then((trendsCounter) => {
       // Send the results
-      console.log("trendsCounterSecond: ", trendsCounter);
-      console.log("max: ", Math.max(...Object.values(trendsCounter)));
+      const sortedTrendsCounter = Object.entries(trendsCounter).sort(
+        ([, a], [, b]) => b - a
+      );
+      console.log("sortedTrendsCounter: ", sortedTrendsCounter);
+      // const twitterSearchURLTemplate = "https://twitter.com/search?q=%22%22";
 
       // Send email
       const msg = {
