@@ -72,10 +72,14 @@ module.exports.processTrendsAndSend = (event, context, callback) => {
     })
     .then((trendsCounter) => {
       // Send the results
-      const sortedTrendsCounter = Object.entries(trendsCounter).sort(
+      const sortedTrendsWithLink = Object.entries(trendsCounter).sort(
         ([, a], [, b]) => b - a
       );
-      console.log("sortedTrendsCounter: ", sortedTrendsCounter);
+      // .reduce((a) => {
+      //   // insert something here
+
+      // });
+      console.log("sortedTrendsCounter: ", sortedTrendsWithLink);
       // const twitterSearchURLTemplate = "https://twitter.com/search?q=%22%22";
 
       // Send email
