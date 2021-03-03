@@ -72,11 +72,16 @@ module.exports.processTrendsAndSend = (event, context, callback) => {
     })
     .then((trendsCounter) => {
       // Send the results
-      const sortedTrendsWithLink = Object.entries(trendsCounter).sort(
-        ([, a], [, b]) => b - a
-      );
-      // .reduce((a) => {
-      //   // insert something here
+      const sortedTrendsWithLink = Object.entries(trendsCounter)
+        .sort(([, a], [, b]) => b - a)
+        .map((x) => {
+          return {
+            trend: x[0],
+            trendLink: "https://twitter.com/search?q=".concat(
+              x[0].replace("#", "%23")
+            ),
+          };
+        });
 
       // });
       console.log("sortedTrendsCounter: ", sortedTrendsWithLink);
