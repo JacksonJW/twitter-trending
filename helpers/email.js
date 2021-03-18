@@ -379,7 +379,7 @@ const embedHtmlEmail = (top8Trends) => {
                                                                                                                 <div
                                                                                                                     style="font-family: inherit">
                                                                                                                     <a
-                                                                                                                        href="https://www.google.com/">TEST</a>
+                                                                                                                        href="${top8Trends[1].trendLink}">${top8Trends[1].trend}</a>
                                                                                                                 </div>
                                                                                                                 <div>
                                                                                                                 </div>
@@ -497,7 +497,7 @@ const embedHtmlEmail = (top8Trends) => {
                                                                                                                 <div
                                                                                                                     style="font-family: inherit">
                                                                                                                     <a
-                                                                                                                        href="https://www.google.com/">TEST</a>
+                                                                                                                        href="${top8Trends[2].trendLink}">${top8Trends[2].trend}</a>
                                                                                                                 </div>
                                                                                                                 <div>
                                                                                                                 </div>
@@ -615,7 +615,7 @@ const embedHtmlEmail = (top8Trends) => {
                                                                                                                 <div
                                                                                                                     style="font-family: inherit">
                                                                                                                     <a
-                                                                                                                        href="https://www.google.com/">TEST</a>
+                                                                                                                        href="${top8Trends[3].trendLink}">${top8Trends[3].trend}</a>
                                                                                                                 </div>
                                                                                                                 <div>
                                                                                                                 </div>
@@ -733,7 +733,7 @@ const embedHtmlEmail = (top8Trends) => {
                                                                                                                 <div
                                                                                                                     style="font-family: inherit">
                                                                                                                     <a
-                                                                                                                        href="https://www.google.com/">TEST</a>
+                                                                                                                        href="${top8Trends[4].trendLink}">${top8Trends[4].trend}</a>
                                                                                                                 </div>
                                                                                                                 <div>
                                                                                                                 </div>
@@ -851,7 +851,7 @@ const embedHtmlEmail = (top8Trends) => {
                                                                                                                 <div
                                                                                                                     style="font-family: inherit">
                                                                                                                     <a
-                                                                                                                        href="https://www.google.com/">TEST</a>
+                                                                                                                        href="${top8Trends[5].trendLink}">${top8Trends[5].trend}</a>
                                                                                                                 </div>
                                                                                                                 <div>
                                                                                                                 </div>
@@ -969,7 +969,7 @@ const embedHtmlEmail = (top8Trends) => {
                                                                                                                 <div
                                                                                                                     style="font-family: inherit">
                                                                                                                     <a
-                                                                                                                        href="https://www.google.com/">TEST</a>
+                                                                                                                        href="${top8Trends[6].trendLink}">${top8Trends[6].trend}</a>
                                                                                                                 </div>
                                                                                                                 <div>
                                                                                                                 </div>
@@ -1087,7 +1087,7 @@ const embedHtmlEmail = (top8Trends) => {
                                                                                                                 <div
                                                                                                                     style="font-family: inherit">
                                                                                                                     <a
-                                                                                                                        href="https://www.google.com/">TEST</a>
+                                                                                                                        href="${top8Trends[7].trendLink}">${top8Trends[7].trend}</a>
                                                                                                                 </div>
                                                                                                                 <div>
                                                                                                                 </div>

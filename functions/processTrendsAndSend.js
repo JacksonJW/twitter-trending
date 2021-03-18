@@ -2,6 +2,7 @@
 const sgMail = require("@sendgrid/mail");
 const moment = require("moment");
 const { listS3Files, getS3Object } = require("../helpers/s3");
+const { embedHtmlEmail } = require("../helpers/email.js");
 
 module.exports.processTrendsAndSend = (event, context, callback) => {
   const formattedDate = moment().format("dddd MMMM Do, YYYY"); // ex. Saturday April 25th, 2020
@@ -85,6 +86,7 @@ module.exports.processTrendsAndSend = (event, context, callback) => {
 
       // });
       console.log("sortedTrendsCounter: ", sortedTrendsWithLink);
+      console.log("email body:\n", embedHtmlEmail(sortedTrendsWithLink));
       // const twitterSearchURLTemplate = "https://twitter.com/search?q=%22%22";
 
       // Send email
@@ -93,7 +95,8 @@ module.exports.processTrendsAndSend = (event, context, callback) => {
         from: "jacksonjwatkins@gmail.com",
         subject: `Trending on Twitter Today in the US - ${formattedDate}`,
         // text: "and easy to do anywhere, even with Node.js",
-        html: "<strong>and easy to do anywhere, even with Node.js</strong>",
+        // "<strong>and easy to do anywhere, even with Node.js</strong>"
+        html: embedHtmlEmail(sortedTrendsWithLink),
       };
       sgMail.send(msg).then((response) => {
         callback(null, response);
