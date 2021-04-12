@@ -67,12 +67,9 @@ module.exports.processTrendsAndSend = (event, context, callback) => {
         );
       });
 
-      console.log("combinedTrendsPromise: ", combinedTrendsPromise);
-
       return combinedTrendsPromise;
     })
     .then((trendsCounter) => {
-      // Send the results
       const sortedTrendsWithLink = Object.entries(trendsCounter)
         .sort(([, a], [, b]) => b - a)
         .map((x) => {
@@ -84,18 +81,10 @@ module.exports.processTrendsAndSend = (event, context, callback) => {
           };
         });
 
-      // });
-      console.log("sortedTrendsCounter: ", sortedTrendsWithLink);
-      console.log("email body:\n", embedHtmlEmail(sortedTrendsWithLink));
-      // const twitterSearchURLTemplate = "https://twitter.com/search?q=%22%22";
-
-      // Send email
       const msg = {
         to: "jacksonjwatkins@gmail.com",
         from: "jacksonjwatkins@gmail.com",
         subject: `Trending on Twitter Today in the US - ${formattedDate}`,
-        // text: "and easy to do anywhere, even with Node.js",
-        // "<strong>and easy to do anywhere, even with Node.js</strong>"
         html: embedHtmlEmail(sortedTrendsWithLink),
       };
       sgMail.send(msg).then((response) => {
