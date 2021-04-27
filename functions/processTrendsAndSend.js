@@ -1,11 +1,13 @@
 // TODO: implement processTrendsAndSend function
 const sgMail = require("@sendgrid/mail");
-const moment = require("moment");
+const moment = require("moment-timezone");
 const { listS3Files, getS3Object } = require("../helpers/s3");
 const { embedHtmlEmail } = require("../helpers/email.js");
 
 module.exports.processTrendsAndSend = (event, context, callback) => {
-  const formattedDate = moment().format("dddd MMMM Do, YYYY"); // ex. Saturday April 25th, 2020
+  const formattedDate = moment()
+    .tz("America/Los_Angeles")
+    .format("dddd MMMM Do, YYYY");
   sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
   listS3Files()
@@ -14,7 +16,6 @@ module.exports.processTrendsAndSend = (event, context, callback) => {
       const s3KeyObjectArray = s3Objects.map((o) => {
         return { Key: o.Key };
       });
-      console.log("s3KeyObjectArray: ", s3KeyObjectArray);
       return s3KeyObjectArray;
     })
     .then((s3KeyObjectArray) => {
@@ -46,11 +47,6 @@ module.exports.processTrendsAndSend = (event, context, callback) => {
               trendsCounter[trend.name] = 1;
             }
           });
-
-          console.log(
-            "final trendsCounter object after calling function: ",
-            trendsCounter
-          );
 
           return trendsCounter;
         });

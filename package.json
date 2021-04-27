@@ -8,6 +8,7 @@
     "@sendgrid/mail": "^7.4.2",
     "aws-sdk": "^2.847.0",
     "moment": "^2.29.1",
+    "moment-timezone": "^0.5.33",
     "twitter-lite": "^0.9.4"
   },
   "devDependencies": {
