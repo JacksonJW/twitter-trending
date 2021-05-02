@@ -8,7 +8,7 @@ custom:
 
 provider:
   name: aws
-  stage: ${opt:stage, 'dev'} #opt means reference CLI option value i.e. "--stage production"
+  stage: ${opt:stage, 'production'} #opt means reference CLI option value ex. "sls deploy --stage dev"
   region: us-west-2
   runtime: nodejs12.x
   profile: twitter-trending

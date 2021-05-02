@@ -1,11 +1,25 @@
-# TODO: Set up CI/CD pipeline with travis
-
-# language: node_js
-# node_js:
-#   - node
-# cache:
-#   directories:
-#     - node_modules
-# script:
-#   - npm install -g serverless
-#   - sls deploy
+language: node_js
+node_js:
+  - "10"
+deploy_service_job: &DEPLOY_SERVICE_JOB
+  cache:
+    directories:
+      - node_modules
+install:
+  - npm install -g serverless
+  - travis_retry npm install
+script:
+  - serverless deploy -s ${STAGE_NAME}
+environments:
+  - &PRODUCTION_ENV
+    - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY}
+    - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+jobs:
+  include:
+    # master branch deploys to the 'production' stage
+    - <<: *DEPLOY_SERVICE_JOB
+      name: "Deploy twitter-trending"
+      if: type = push AND branch = master
+      env:
+        - STAGE_NAME=production
+        - *PRODUCTION_ENV
