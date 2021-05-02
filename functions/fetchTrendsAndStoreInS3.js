@@ -4,7 +4,6 @@ const { storeInS3 } = require("../helpers/s3");
 module.exports.fetchTrendsAndStoreInS3 = (event, context, callback) => {
   fetchTrends() // eslint-disable-next-line consistent-return
     .then((response) => {
-      // const status = response._headers.status[0];
       const {
         _headers: { status },
       } = response;

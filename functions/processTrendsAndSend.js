@@ -33,13 +33,11 @@ module.exports.processTrendsAndSend = (event, context, callback) => {
         return o.Key;
       });
 
-      // Loop through s3 json files and count the occurrences of the trends
       const buildTrendsCounterObject = (s3Key, previousTrendsCounterObject) => {
         const trendsCounter = previousTrendsCounterObject;
 
         return getS3Object(s3Key).then((response) => {
           const [{ trends }] = JSON.parse(response.Body.toString());
-
           trends.forEach((trend) => {
             if (trendsCounter[trend.name]) {
               trendsCounter[trend.name] += 1;
