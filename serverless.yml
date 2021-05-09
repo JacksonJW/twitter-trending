@@ -4,7 +4,7 @@ org: jacksonjwatkins
 
 custom:
   bucket: twitter-trending
-  env: ${file(./${self:provider.stage}.env.json)}
+  env: ${file(./${self:provider.stage}.env.json), travis.yml}
 
 provider:
   name: aws
