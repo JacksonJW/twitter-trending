@@ -33,9 +33,8 @@ module.exports.processTrendsAndSend = (event, context, callback) => {
         return o.Key;
       });
 
-      const buildTrendsCounterObject = (s3Key, previousTrendsCounterObject) => {
-        const trendsCounter = previousTrendsCounterObject;
-
+      const buildTrendsCounterObject = (s3Key, previousTrendsCounter) => {
+        const trendsCounter = previousTrendsCounter;
         return getS3Object(s3Key).then((response) => {
           const [{ trends }] = JSON.parse(response.Body.toString());
           trends.forEach((trend) => {
@@ -45,23 +44,19 @@ module.exports.processTrendsAndSend = (event, context, callback) => {
               trendsCounter[trend.name] = 1;
             }
           });
-
           return trendsCounter;
         });
       };
 
-      let combinedTrendsPromise = Promise.resolve().then(() => {
+      let combinedTrendsCounter = Promise.resolve().then(() => {
         return {};
       });
-
       s3KeyArray.forEach((key) => {
-        combinedTrendsPromise = combinedTrendsPromise.then(
-          (trendsCounterObject) =>
-            buildTrendsCounterObject(key, trendsCounterObject)
+        combinedTrendsCounter = combinedTrendsCounter.then((trendsCounter) =>
+          buildTrendsCounterObject(key, trendsCounter)
         );
       });
-
-      return combinedTrendsPromise;
+      return combinedTrendsCounter;
     })
     .then((trendsCounter) => {
       const sortedTrendsWithLink = Object.entries(trendsCounter)
