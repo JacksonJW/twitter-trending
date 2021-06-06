@@ -4,7 +4,7 @@ org: jacksonjwatkins
 
 custom:
   bucket: twitter-trending
-  env: ${file(./${self:provider.stage}.env.json), env:}
+  env: ${file(./${self:provider.stage}.env.json)}
 
 provider:
   name: aws
@@ -25,7 +25,7 @@ provider:
       Resource: "arn:aws:s3:::${self:custom.bucket}*"
   environment:
     BUCKET: ${self:custom.bucket}
-    TWITTER_CONSUMER_KEY: ${env:TWITTER_CONSUMER_KEY, self:custom.env.TWITTER_CONSUMER_KEY}
+    TWITTER_CONSUMER_KEY: ${self:custom.env.TWITTER_CONSUMER_KEY}
     TWITTER_CONSUMER_SECRET: ${env:TWITTER_CONSUMER_SECRET, self:custom.env.TWITTER_CONSUMER_SECRET}
     TWITTER_ACCESS_TOKEN_KEY: ${env:TWITTER_ACCESS_TOKEN_KEY, self:custom.env.TWITTER_ACCESS_TOKEN_KEY}
     TWITTER_ACCESS_TOKEN_SECRET: ${env:TWITTER_ACCESS_TOKEN_SECRET,self:custom.env.TWITTER_ACCESS_TOKEN_SECRET}
