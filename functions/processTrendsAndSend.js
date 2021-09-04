@@ -71,8 +71,8 @@ module.exports.processTrendsAndSend = (event, context, callback) => {
         });
 
       const msg = {
-        to: "jacksonjwatkins@gmail.com",
-        from: "jacksonjwatkins@gmail.com",
+        to: process.env.TO_EMAIL_ADDRESS,
+        from: process.env.FROM_EMAIL_ADDRESS,
         subject: `Trending on Twitter Today in the US - ${formattedDate}`,
         html: embedHtmlEmail(sortedTrendsWithLink),
       };

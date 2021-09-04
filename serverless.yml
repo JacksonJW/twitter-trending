@@ -32,6 +32,8 @@ provider:
     TWILIO_ACCOUNT_SID: ${env:TWILIO_ACCOUNT_SID, self:custom.env.TWILIO_ACCOUNT_SID}
     TWILIO_AUTH_TOKEN: ${env:TWILIO_AUTH_TOKEN, self:custom.env.TWILIO_AUTH_TOKEN}
     SENDGRID_API_KEY: ${env:SENDGRID_API_KEY, self:custom.env.SENDGRID_API_KEY}
+    TO_EMAIL_ADDRESS: ${env:TO_EMAIL_ADDRESS, self:custom.env.TO_EMAIL_ADDRESS}
+    FROM_EMAIL_ADDRESS: ${env:FROM_EMAIL_ADDRESS, self:custom.env.FROM_EMAIL_ADDRESS}
 
 functions:
   fetchTrendsAndStoreInS3:
