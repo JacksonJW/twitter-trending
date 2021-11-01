@@ -5,8 +5,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@sendgrid/mail": "^7.4.2",
-    "aws-sdk": "^2.847.0",
+    "@sendgrid/mail": "^7.5.0",
+    "aws-sdk": "^2.1018.0",
     "moment": "^2.29.1",
     "moment-timezone": "^0.5.33",
     "twitter-lite": "^0.9.4"
@@ -15,8 +15,8 @@
     "eslint": "^6.8.0",
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-config-prettier": "^6.15.0",
-    "eslint-plugin-import": "^2.22.1",
-    "eslint-plugin-prettier": "^3.3.1",
-    "prettier": "^2.2.1"
+    "eslint-plugin-import": "^2.25.2",
+    "eslint-plugin-prettier": "^3.4.1",
+    "prettier": "^2.4.1"
   }
 }
