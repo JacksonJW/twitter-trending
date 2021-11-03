@@ -23,5 +23,3 @@ To deploy and invoke remotely
 ## serverless.yml reference
 
 https://serverless.com/framework/docs/providers/aws/guide/serverless.yml/
-
-## Work in Progress as of January 2020
