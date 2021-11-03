@@ -2,7 +2,7 @@
 const sgMail = require("@sendgrid/mail");
 const moment = require("moment-timezone");
 const { listS3Files, getS3Object } = require("../helpers/s3");
-const { embedHtmlEmail } = require("../helpers/email.js");
+const { embedHtmlEmail } = require("../helpers/email");
 
 module.exports.processTrendsAndSend = (event, context, callback) => {
   const formattedDate = moment()
