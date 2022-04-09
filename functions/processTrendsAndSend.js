@@ -64,8 +64,8 @@ module.exports.processTrendsAndSend = (event, context, callback) => {
         .map((x) => {
           return {
             trend: x[0],
-            trendLink: "https://twitter.com/search?q=".concat(
-              x[0].replace("#", "%23")
+            trendLink: "https://twitter.com/search?q=%22".concat(
+              x[0].replace("#", "%23").replaceAll(" ", "%20").concat("%22")
             ),
           };
         });
