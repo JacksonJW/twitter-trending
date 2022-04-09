@@ -162,7 +162,7 @@ const embedHtmlEmail = (top8Trends) => {
                                                                 style="display: none !important; mso-hide: all; visibility: hidden; opacity: 0; color: transparent; height: 0; width: 0;">
                                                                 <tr>
                                                                     <td role="module-content">
-                                                                        <p>TEST</p>
+                                                                        <p></p>
                                                                     </td>
                                                                 </tr>
                                                             </table>
