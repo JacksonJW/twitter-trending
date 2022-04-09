@@ -126,3 +126,6 @@ dist
 .yarn/unplugged
 .yarn/build-state.yml
 .pnp.*
+
+# mac ds_store
+.DS_Store
