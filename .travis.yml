@@ -26,7 +26,7 @@ jobs:
     # master branch deploys to the 'production' stage
     - <<: *DEPLOY_SERVICE_JOB
       name: "Deploy twitter-trending"
-      if: type = push AND branch = master
+      if: type = push AND branch = main
       env:
         - STAGE_NAME=production
         - *PRODUCTION_ENV
