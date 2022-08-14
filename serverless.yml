@@ -12,17 +12,19 @@ provider:
   region: us-west-1
   runtime: nodejs12.x
   profile: twitter-trending
-  iamRoleStatements:
-    - Effect: "Allow"
-      Action:
-        - "s3:PutObject"
-        - "s3:PutObjectAcl"
-        - "s3:GetObject"
-        - "s3:GetObjectAcl"
-        - "s3:DeleteObject"
-        - "s3:ListBucket"
-        - "s3:ListAllMyBuckets"
-      Resource: "arn:aws:s3:::${self:custom.bucket}*"
+  iam:
+    role:
+      statements:
+        - Effect: "Allow"
+          Action:
+            - "s3:PutObject"
+            - "s3:PutObjectAcl"
+            - "s3:GetObject"
+            - "s3:GetObjectAcl"
+            - "s3:DeleteObject"
+            - "s3:ListBucket"
+            - "s3:ListAllMyBuckets"
+          Resource: "arn:aws:s3:::${self:custom.bucket}*"
   environment:
     BUCKET: ${self:custom.bucket}
     TWITTER_CONSUMER_KEY: ${env:TWITTER_CONSUMER_KEY, self:custom.env.TWITTER_CONSUMER_KEY}
