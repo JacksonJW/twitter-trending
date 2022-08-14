@@ -10,7 +10,7 @@ provider:
   name: aws
   stage: ${opt:stage, 'production'} #opt means reference CLI option value ex. "sls deploy --stage dev"
   region: us-west-1
-  runtime: nodejs12.x
+  runtime: nodejs16.x
   profile: twitter-trending
   iam:
     role:
