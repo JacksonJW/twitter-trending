@@ -49,7 +49,8 @@ module.exports.processTrendsAndSend = (event, context, callback) => {
       };
 
       let combinedTrendsCounter = Promise.resolve().then(() => {
-        return {};
+        const trendsCounter = {};
+        return trendsCounter;
       });
       s3KeyArray.forEach((key) => {
         combinedTrendsCounter = combinedTrendsCounter.then((trendsCounter) =>
@@ -60,12 +61,12 @@ module.exports.processTrendsAndSend = (event, context, callback) => {
     })
     .then((trendsCounter) => {
       const sortedTrendsWithLink = Object.entries(trendsCounter)
-        .sort(([, a], [, b]) => b - a)
-        .map((x) => {
+        .sort(([, trendCount1], [, trendCount2]) => trendCount2 - trendCount1)
+        .map(([trend]) => {
           return {
-            trend: x[0],
+            trend,
             trendLink: "https://twitter.com/search?q=%22".concat(
-              x[0].replace("#", "%23").replace(" ", "%20").concat("%22")
+              trend.replace("#", "%23").replace(" ", "%20").concat("%22")
             ),
           };
         });
